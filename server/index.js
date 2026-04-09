@@ -1,41 +1,34 @@
-const express = require('express')
-const app = express()
-const mysql = require("mysql");
-const port = 3000
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "school_management"
+const PORT = 5000;
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+// making connection to MySQL server
+
+var db = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'prisoner',
+  database : 'super_school'
 });
 
 db.connect((err) => {
-  if (err) {
-    console.log("Connection failed");
-  } else {
-    console.log("Connected to MySQL");
-  }
-});
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.get("/students", (req, res) => {
-  db.query("SELECT * FROM students", (err, result) => {
     if (err) {
-      res.send(err);
-    } else {
-      res.json(result);
+        console.error('Error connecting to MySQL:', err);
+        throw err;
     }
-  });
+    else {
+        console.log('Connected to MySQL database'); 
+    }
 });
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
-
+ 
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+}); 
 
