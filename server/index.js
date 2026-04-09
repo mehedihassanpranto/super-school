@@ -20,7 +20,7 @@ var db = mysql.createConnection({
 
 db.connect((err) => {
     if (err) {
-        console.error('Error connecting to MySQL:', err);
+        console.error('Errors are connecting to MySQL:', err);
         throw err;
     }
     else {
